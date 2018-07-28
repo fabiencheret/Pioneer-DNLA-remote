@@ -1,0 +1,510 @@
+PWR01 - power on
+
+NSV000 - Music Server - 0000   49 53 43 50 00 00 00 10 00 00 00 09 01 00 00 00   ISCP............
+                        0010   21 31 4e 53 56 30 30 30 0a                        !1NSV000.
+
+NLAI010000 FibaneServer-0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+						0010   21 31 4e 4c 41 49 30 31 30 30 30 30 2d 2d 2d 2d   !1NLAI010000----
+						0020   0a                                                .
+
+						Reponse :
+0000   49 53 43 50 00 00 00 10 00 00 00 2a 01 00 00 00   ISCP.......*....
+0010   21 31 4e 4c 54 30 30 30 32 30 30 30 30 30 30 30   !1NLT00020000000
+0020   35 30 32 31 30 30 34 30 30 30 30 46 69 62 61 6e   50210040000Fiban
+0030   65 53 65 72 76 65 72 1a 0d 0a                     eServer...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 19 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 30 2d 42 72 6f 77 73 65 20 46   !1NLSU0-Browse F
+0020   6f 6c 64 65 72 73 1a 0d 0a                        olders...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 10 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 31 2d 4d 75 73 69 63 1a 0d 0a   !1NLSU1-Music...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 13 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 32 2d 50 69 63 74 75 72 65 73   !1NLSU2-Pictures
+0020   1a 0d 0a                                          ...
+
+REQ Musique :
+
+0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 49 30 32 30 30 30 31 2d 2d 2d 2d   !1NLAI020001----
+0020   0a                                                .
+
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 30 37 30 33 30 30 30 30   !1NLAL0007030000
+0020   30 30 30 37 0a                                    0007.
+
+REP Musique
+
+0000   49 53 43 50 00 00 00 10 00 00 00 10 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 30 2d 41 6c 62 75 6d 1a 0d 0a   !1NLSU0-Album...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 14 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 31 2d 41 6c 6c 20 4d 75 73 69   !1NLSU1-All Musi
+0020   63 1a 0d 0a                                       c...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 32 2d 41 72 74 69 73 74 1a 0d   !1NLSU2-Artist..
+0020   0a                                                .
+
+REQ Artist
+
+0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 49 30 33 30 30 30 32 2d 2d 2d 2d   !1NLAI030002----
+0020   0a                                                .
+
+REP Artist
+
+0000   49 53 43 50 00 00 00 10 00 00 00 24 01 00 00 00   ISCP.......$....
+0010   21 31 4e 4c 54 30 30 30 32 30 30 30 30 30 32 39   !1NLT00020000029
+0020   42 30 34 31 30 30 34 30 30 30 30 41 72 74 69 73   B0410040000Artis
+0030   74 1a 0d 0a                                       t...
+
+REQ
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 30 38 30 34 30 30 30 30   !1NLAL0008040000
+0020   30 30 31 34 0a                                    0014.
+
+0000   49 53 43 50 00 00 00 10 00 00 00 0f 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 30 2d 32 50 61 63 1a 0d 0a      !1NLSU0-2Pac...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 10 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 33 2d 41 43 2f 44 43 1a 0d 0a   !1NLSU3-AC/DC...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 30 33 30 34 30 30 30 30   !1NLAL0003040000
+0020   30 30 31 34 0a                                    0014.
+
+ETC
+
+0000   74 79 70 65 3d 22 46 22 20 69 63 6f 6e 69 64 3d   type="F" iconid=
+0010   22 32 39 22 20 74 69 74 6c 65 3d 22 41 6e 61 6c   "29" title="Anal
+0020   6f 67 20 50 65 6f 70 6c 65 20 49 6e 20 41 20 44   og People In A D
+0030   69 67 69 74 61 6c 20 57 6f 72 6c 64 22 20 73 65   igital World" se
+0040   6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c   lectable="1" /><
+0050   2f 69 74 65 6d 73 3e 3c 2f 72 65 73 70 6f 6e 73   /items></respons
+0060   65 3e 1a 0d 0a                                    e>...
+
+0000   49 53 43 50 00 00 00 10 00 00 06 98 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 58 30 30 35 37 53 30 30 30 3c 3f   !1NLAX0057S000<?
+0020   78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 2e 30   xml version="1.0
+0030   22 20 65 6e 63 6f 64 69 6e 67 3d 22 75 74 66 2d   " encoding="utf-
+0040   38 22 3f 3e 3c 72 65 73 70 6f 6e 73 65 20 73 74   8"?><response st
+0050   61 74 75 73 3d 22 6f 6b 22 3e 3c 69 74 65 6d 73   atus="ok"><items
+0060   20 6f 66 66 73 65 74 3d 22 35 38 30 22 20 74 6f    offset="580" to
+0070   74 61 6c 69 74 65 6d 73 3d 22 32 30 22 20 3e 3c   talitems="20" ><
+0080   69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46   item icontype="F
+0090   22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69   " iconid="29" ti
+00a0   74 6c 65 3d 22 54 61 69 6f 20 43 72 75 7a 22 20   tle="Taio Cruz"
+00b0   73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f   selectable="1" /
+00c0   3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d   ><item icontype=
+00d0   22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20   "F" iconid="29"
+00e0   74 69 74 6c 65 3d 22 54 61 69 6f 20 43 72 75 7a   title="Taio Cruz
+00f0   20 46 65 61 74 2e 20 4b 79 6c 69 65 20 4d 69 6e    Feat. Kylie Min
+0100   6f 67 75 65 22 20 73 65 6c 65 63 74 61 62 6c 65   ogue" selectable
+0110   3d 22 31 22 20 2f 3e 3c 69 74 65 6d 20 69 63 6f   ="1" /><item ico
+0120   6e 74 79 70 65 3d 22 46 22 20 69 63 6f 6e 69 64   ntype="F" iconid
+0130   3d 22 32 39 22 20 74 69 74 6c 65 3d 22 54 61 6d   ="29" title="Tam
+0140   70 65 72 65 72 20 66 65 61 74 2e 20 4d 61 79 61   perer feat. Maya
+0150   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+0160   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+0170   65 3d 22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39   e="F" iconid="29
+0180   22 20 74 69 74 6c 65 3d 22 54 61 6e 6e 68 61 75   " title="Tannhau
+0190   73 65 72 2d 57 61 67 6e 65 72 2d 4f 20 64 75 2c   ser-Wagner-O du,
+01a0   20 6d 65 69 6e 20 68 6f 6c 64 65 72 20 41 62 65    mein holder Abe
+01b0   6e 73 74 65 72 6e 2e 2e 2e 22 20 73 65 6c 65 63   nstern..." selec
+01c0   74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69 74 65   table="1" /><ite
+01d0   6d 20 69 63 6f 6e 74 79 70 65 3d 22 46 22 20 69   m icontype="F" i
+01e0   63 6f 6e 69 64 3d 22 32 39 22 20 74 69 74 6c 65   conid="29" title
+01f0   3d 22 54 61 6e 7a 6b 6f 6e 73 6f 6c 22 20 73 65   ="Tanzkonsol" se
+0200   6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c   lectable="1" /><
+0210   69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46   item icontype="F
+0220   22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69   " iconid="29" ti
+0230   74 6c 65 3d 22 54 65 63 68 6e 6f 62 6f 79 22 20   tle="Technoboy"
+0240   73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f   selectable="1" /
+0250   3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d   ><item icontype=
+0260   22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20   "F" iconid="29"
+0270   74 69 74 6c 65 3d 22 54 65 63 68 6e 6f 74 72 6f   title="Technotro
+0280   6e 69 63 20 56 73 20 44 69 6d 69 74 72 69 20 56   nic Vs Dimitri V
+0290   65 67 61 73 20 26 61 6d 70 3b 20 4c 69 6b 65 20   egas &amp; Like
+02a0   4d 69 6b 65 22 20 73 65 6c 65 63 74 61 62 6c 65   Mike" selectable
+02b0   3d 22 31 22 20 2f 3e 3c 69 74 65 6d 20 69 63 6f   ="1" /><item ico
+02c0   6e 74 79 70 65 3d 22 46 22 20 69 63 6f 6e 69 64   ntype="F" iconid
+02d0   3d 22 32 39 22 20 74 69 74 6c 65 3d 22 54 65 63   ="29" title="Tec
+02e0   68 6e 6f 74 72 6f 6e 69 63 20 56 73 2e 20 44 69   hnotronic Vs. Di
+02f0   6d 69 74 72 69 20 56 65 67 61 73 22 20 73 65 6c   mitri Vegas" sel
+0300   65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69   ectable="1" /><i
+0310   74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46 22   tem icontype="F"
+0320   20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69 74    iconid="29" tit
+0330   6c 65 3d 22 54 65 6e 73 6e 61 6b 65 22 20 73 65   le="Tensnake" se
+0340   6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c   lectable="1" /><
+0350   69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46   item icontype="F
+0360   22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69   " iconid="29" ti
+0370   74 6c 65 3d 22 54 68 65 20 42 65 61 74 6c 65 73   tle="The Beatles
+0380   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+0390   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+03a0   65 3d 22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39   e="F" iconid="29
+03b0   22 20 74 69 74 6c 65 3d 22 54 68 65 20 42 6c 61   " title="The Bla
+03c0   63 6b 20 45 79 65 64 20 50 65 61 73 22 20 73 65   ck Eyed Peas" se
+03d0   6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c   lectable="1" /><
+03e0   69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46   item icontype="F
+03f0   22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69   " iconid="29" ti
+0400   74 6c 65 3d 22 54 68 65 20 42 6c 69 7a 7a 61 72   tle="The Blizzar
+0410   64 20 26 61 6d 70 3b 20 4f 6d 6e 69 61 22 20 73   d &amp; Omnia" s
+0420   65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e   electable="1" />
+0430   3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22   <item icontype="
+0440   46 22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74   F" iconid="29" t
+0450   69 74 6c 65 3d 22 54 68 65 20 42 6c 6f 6f 64 79   itle="The Bloody
+0460   20 42 65 65 74 72 6f 6f 74 73 22 20 73 65 6c 65    Beetroots" sele
+0470   63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69 74   ctable="1" /><it
+0480   65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46 22 20   em icontype="F"
+0490   69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69 74 6c   iconid="29" titl
+04a0   65 3d 22 54 68 65 20 42 6c 6f 6f 64 79 20 42 65   e="The Bloody Be
+04b0   65 74 72 6f 6f 74 73 20 66 65 61 74 2e 20 53 74   etroots feat. St
+04c0   65 76 65 20 41 6f 6b 69 22 20 73 65 6c 65 63 74   eve Aoki" select
+04d0   61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69 74 65 6d   able="1" /><item
+04e0   20 69 63 6f 6e 74 79 70 65 3d 22 46 22 20 69 63    icontype="F" ic
+04f0   6f 6e 69 64 3d 22 32 39 22 20 74 69 74 6c 65 3d   onid="29" title=
+0500   22 54 68 65 20 42 6c 6f 6f 64 79 20 42 65 65 74   "The Bloody Beet
+0510   72 6f 6f 74 73 20 66 74 20 53 74 65 76 65 20 41   roots ft Steve A
+0520   6f 6b 69 22 20 73 65 6c 65 63 74 61 62 6c 65 3d   oki" selectable=
+0530   22 31 22 20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e   "1" /><item icon
+0540   74 79 70 65 3d 22 46 22 20 69 63 6f 6e 69 64 3d   type="F" iconid=
+0550   22 32 39 22 20 74 69 74 6c 65 3d 22 54 68 65 20   "29" title="The
+0560   43 61 72 74 65 72 73 22 20 73 65 6c 65 63 74 61   Carters" selecta
+0570   62 6c 65 3d 22 31 22 20 2f 3e 3c 69 74 65 6d 20   ble="1" /><item
+0580   69 63 6f 6e 74 79 70 65 3d 22 46 22 20 69 63 6f   icontype="F" ico
+0590   6e 69 64 3d 22 32 39 22 20 74 69 74 6c 65 3d 22   nid="29" title="
+05a0   54 68 65 20 43 6c 61 73 68 22 20 73 65 6c 65 63   The Clash" selec
+05b0   74 61 62 6c                                       tabl
+
+
+
+0000   49 53 43 50 00 00 00 10 00 00 02 86 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 58 30 30 35 42 53 30 30 30 3c 3f   !1NLAX005BS000<?
+0020   78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 2e 30   xml version="1.0
+0030   22 20 65 6e 63 6f 64 69 6e 67 3d 22 75 74 66 2d   " encoding="utf-
+0040   38 22 3f 3e 3c 72 65 73 70 6f 6e 73 65 20 73 74   8"?><response st
+0050   61 74 75 73 3d 22 6f 6b 22 3e 3c 69 74 65 6d 73   atus="ok"><items
+0060   20 6f 66 66 73 65 74 3d 22 36 36 30 22 20 74 6f    offset="660" to
+0070   74 61 6c 69 74 65 6d 73 3d 22 37 22 20 3e 3c 69   talitems="7" ><i
+0080   74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46 22   tem icontype="F"
+0090   20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69 74    iconid="29" tit
+00a0   6c 65 3d 22 64 65 61 64 6d 61 75 35 22 20 73 65   le="deadmau5" se
+00b0   6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c   lectable="1" /><
+00c0   69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 46   item icontype="F
+00d0   22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20 74 69   " iconid="29" ti
+00e0   74 6c 65 3d 22 64 65 61 64 6d 61 75 35 20 66 65   tle="deadmau5 fe
+00f0   61 74 2e 20 4d 63 20 46 6c 69 70 73 69 64 65 22   at. Mc Flipside"
+0100   20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20    selectable="1"
+0110   2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65   /><item icontype
+0120   3d 22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39 22   ="F" iconid="29"
+0130   20 74 69 74 6c 65 3d 22 64 65 61 64 6d 61 75 35    title="deadmau5
+0140   20 66 65 61 74 2e 20 52 6f 62 20 53 77 69 72 65    feat. Rob Swire
+0150   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+0160   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+0170   65 3d 22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39   e="F" iconid="29
+0180   22 20 74 69 74 6c 65 3d 22 68 69 3a 66 69 20 76   " title="hi:fi v
+0190   73 2e 20 44 61 76 65 20 44 61 72 65 6c 6c 22 20   s. Dave Darell"
+01a0   73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f   selectable="1" /
+01b0   3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d   ><item icontype=
+01c0   22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39 22 20   "F" iconid="29"
+01d0   74 69 74 6c 65 3d 22 74 68 65 20 47 61 7a 65 74   title="the Gazet
+01e0   74 45 22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22   tE" selectable="
+01f0   31 22 20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74   1" /><item icont
+0200   79 70 65 3d 22 46 22 20 69 63 6f 6e 69 64 3d 22   ype="F" iconid="
+0210   32 39 22 20 74 69 74 6c 65 3d 22 c3 98 72 6a 61   29" title="Ã.rja
+0220   6e 20 4e 69 6c 73 65 6e 22 20 73 65 6c 65 63 74   n Nilsen" select
+0230   61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69 74 65 6d   able="1" /><item
+0240   20 69 63 6f 6e 74 79 70 65 3d 22 46 22 20 69 63    icontype="F" ic
+0250   6f 6e 69 64 3d 22 32 39 22 20 74 69 74 6c 65 3d   onid="29" title=
+0260   22 e3 82 ac e3 82 bc e3 83 83 e3 83 88 22 20 73   "ã.¬ã.¼ã..ã.." s
+0270   65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e   electable="1" />
+0280   3c 2f 69 74 65 6d 73 3e 3c 2f 72 65 73 70 6f 6e   </items></respon
+0290   73 65 3e 1a 0d 0a                                 se>...
+
+
+REQ
+
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 30 39 30 34 30 30 31 34   !1NLAL0009040014
+0020   30 30 31 34 0a                                    0014.
+
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 30 43 30 34 30 30 35 30   !1NLAL000C040050
+0020   30 30 31 34 0a                                    0014.
+
+
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 30 44 30 34 30 30 36 34   !1NLAL000D040064
+0020   30 30 31 34 0a                                    0014.
+
+CLIC SUR Future (un seul album HNDRXX)
+
+0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 49 30 34 30 30 45 34 2d 2d 2d 2d   !1NLAI0400E4----
+0020   0a                                                .
+
+REP
+
+0000   49 53 43 50 00 00 00 10 00 00 00 24 01 00 00 00   ISCP.......$....
+0010   21 31 4e 4c 54 30 30 30 32 30 30 30 30 30 30 30   !1NLT00020000000
+0020   32 30 35 31 30 30 34 30 30 30 30 46 75 74 75 72   20510040000Futur
+0030   65 1a 0d 0a                                       e...
+
+REQ
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 37 46 30 35 30 30 30 30   !1NLAL007F050000
+0020   30 30 30 32 0a                                    0002.
+
+REP
+0000   49 53 43 50 00 00 00 10 00 00 00 0b 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 43 30 50 1a 0d 0a                  !1NLSC0P...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 19 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 30 2d 2d 20 41 6c 6c 20 41 6c   !1NLSU0-- All Al
+0020   62 75 6d 73 20 2d 1a 0d 0a                        bums -...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 31 2d 48 4e 44 52 58 58 1a 0d   !1NLSU1-HNDRXX..
+0020   0a                                                .
+
+0000   49 53 43 50 00 00 00 10 00 00 01 08 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 58 30 30 37 46 53 30 30 30 3c 3f   !1NLAX007FS000<?
+0020   78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 2e 30   xml version="1.0
+0030   22 20 65 6e 63 6f 64 69 6e 67 3d 22 75 74 66 2d   " encoding="utf-
+0040   38 22 3f 3e 3c 72 65 73 70 6f 6e 73 65 20 73 74   8"?><response st
+0050   61 74 75 73 3d 22 6f 6b 22 3e 3c 69 74 65 6d 73   atus="ok"><items
+0060   20 6f 66 66 73 65 74 3d 22 30 22 20 74 6f 74 61    offset="0" tota
+0070   6c 69 74 65 6d 73 3d 22 32 22 20 3e 3c 69 74 65   litems="2" ><ite
+0080   6d 20 69 63 6f 6e 74 79 70 65 3d 22 46 22 20 69   m icontype="F" i
+0090   63 6f 6e 69 64 3d 22 32 39 22 20 74 69 74 6c 65   conid="29" title
+00a0   3d 22 2d 20 41 6c 6c 20 41 6c 62 75 6d 73 20 2d   ="- All Albums -
+00b0   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+00c0   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+00d0   65 3d 22 46 22 20 69 63 6f 6e 69 64 3d 22 32 39   e="F" iconid="29
+00e0   22 20 74 69 74 6c 65 3d 22 48 4e 44 52 58 58 22   " title="HNDRXX"
+00f0   20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20    selectable="1"
+0100   2f 3e 3c 2f 69 74 65 6d 73 3e 3c 2f 72 65 73 70   /></items></resp
+0110   6f 6e 73 65 3e 1a 0d 0a                           onse>...
+
+Clic sur HNDRXX
+
+0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 49 30 35 30 30 30 31 2d 2d 2d 2d   !1NLAI050001----
+0020   0a                                                .
+
+REP
+
+0000   49 53 43 50 00 00 00 10 00 00 00 24 01 00 00 00   ISCP.......$....
+0010   21 31 4e 4c 54 30 30 30 32 30 30 30 30 30 30 31   !1NLT00020000001
+0020   33 30 36 31 30 30 34 30 30 30 30 48 4e 44 52 58   30610040000HNDRX
+0030   58 1a 0d 0a                                       X...
+
+REQ
+0000   49 53 43 50 00 00 00 10 00 00 00 15 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 4c 30 30 38 32 30 36 30 30 30 30   !1NLAL0082060000
+0020   30 30 31 33 0a                                    0013.
+
+REP
+0000   49 53 43 50 00 00 00 10 00 00 00 0b 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 43 30 50 1a 0d 0a                  !1NLSC0P...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 18 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 55 30 2d 4d 79 20 43 6f 6c 6c 65   !1NLSU0-My Colle
+0020   63 74 69 6f 6e 1a 0d 0a                           ction...
+
+...
+
+0000   49 53 43 50 00 00 00 10 00 00 05 c1 01 00 00 00   ISCP.......Á....
+0010   21 31 4e 4c 41 58 30 30 38 32 53 30 30 30 3c 3f   !1NLAX0082S000<?
+0020   78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 2e 30   xml version="1.0
+0030   22 20 65 6e 63 6f 64 69 6e 67 3d 22 75 74 66 2d   " encoding="utf-
+0040   38 22 3f 3e 3c 72 65 73 70 6f 6e 73 65 20 73 74   8"?><response st
+0050   61 74 75 73 3d 22 6f 6b 22 3e 3c 69 74 65 6d 73   atus="ok"><items
+0060   20 6f 66 66 73 65 74 3d 22 30 22 20 74 6f 74 61    offset="0" tota
+0070   6c 69 74 65 6d 73 3d 22 31 39 22 20 3e 3c 69 74   litems="19" ><it
+0080   65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 4d 22 20   em icontype="M"
+0090   69 63 6f 6e 69 64 3d 22 32 64 22 20 74 69 74 6c   iconid="2d" titl
+00a0   65 3d 22 4d 79 20 43 6f 6c 6c 65 63 74 69 6f 6e   e="My Collection
+00b0   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+00c0   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+00d0   65 3d 22 4d 22 20 69 63 6f 6e 69 64 3d 22 32 64   e="M" iconid="2d
+00e0   22 20 74 69 74 6c 65 3d 22 4b 65 65 70 20 51 75   " title="Keep Qu
+00f0   69 65 74 22 20 73 65 6c 65 63 74 61 62 6c 65 3d   iet" selectable=
+0100   22 31 22 20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e   "1" /><item icon
+0110   74 79 70 65 3d 22 4d 22 20 69 63 6f 6e 69 64 3d   type="M" iconid=
+0120   22 32 64 22 20 74 69 74 6c 65 3d 22 48 61 6c 6c   "2d" title="Hall
+0130   75 63 69 6e 61 74 69 6e 67 22 20 73 65 6c 65 63   ucinating" selec
+0140   74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69 74 65   table="1" /><ite
+0150   6d 20 69 63 6f 6e 74 79 70 65 3d 22 4d 22 20 69   m icontype="M" i
+0160   63 6f 6e 69 64 3d 22 32 64 22 20 74 69 74 6c 65   conid="2d" title
+0170   3d 22 49 20 54 68 61 6e 6b 20 55 22 20 73 65 6c   ="I Thank U" sel
+0180   65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69   ectable="1" /><i
+0190   74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 4d 22   tem icontype="M"
+01a0   20 69 63 6f 6e 69 64 3d 22 32 64 22 20 74 69 74    iconid="2d" tit
+01b0   6c 65 3d 22 4e 65 77 20 49 6c 6c 75 6d 69 6e 61   le="New Illumina
+01c0   74 69 22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22   ti" selectable="
+01d0   31 22 20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74   1" /><item icont
+01e0   79 70 65 3d 22 4d 22 20 69 63 6f 6e 69 64 3d 22   ype="M" iconid="
+01f0   32 64 22 20 74 69 74 6c 65 3d 22 54 75 72 6e 20   2d" title="Turn
+0200   4f 6e 20 4d 65 22 20 73 65 6c 65 63 74 61 62 6c   On Me" selectabl
+0210   65 3d 22 31 22 20 2f 3e 3c 69 74 65 6d 20 69 63   e="1" /><item ic
+0220   6f 6e 74 79 70 65 3d 22 4d 22 20 69 63 6f 6e 69   ontype="M" iconi
+0230   64 3d 22 32 64 22 20 74 69 74 6c 65 3d 22 53 65   d="2d" title="Se
+0240   6c 66 69 73 68 20 28 66 65 61 74 2e 20 52 69 68   lfish (feat. Rih
+0250   61 6e 6e 61 29 22 20 73 65 6c 65 63 74 61 62 6c   anna)" selectabl
+0260   65 3d 22 31 22 20 2f 3e 3c 69 74 65 6d 20 69 63   e="1" /><item ic
+0270   6f 6e 74 79 70 65 3d 22 4d 22 20 69 63 6f 6e 69   ontype="M" iconi
+0280   64 3d 22 32 64 22 20 74 69 74 6c 65 3d 22 53 6f   d="2d" title="So
+0290   6c 6f 22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22   lo" selectable="
+02a0   31 22 20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74   1" /><item icont
+02b0   79 70 65 3d 22 4d 22 20 69 63 6f 6e 69 64 3d 22   ype="M" iconid="
+02c0   32 64 22 20 74 69 74 6c 65 3d 22 53 6f 72 72 79   2d" title="Sorry
+02d0   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+02e0   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+02f0   65 3d 22 4d 22 20 69 63 6f 6e 69 64 3d 22 32 64   e="M" iconid="2d
+0300   22 20 74 69 74 6c 65 3d 22 50 49 45 20 28 66 65   " title="PIE (fe
+0310   61 74 2e 20 43 68 72 69 73 20 42 72 6f 77 6e 29   at. Chris Brown)
+0320   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+0330   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+0340   65 3d 22 4d 22 20 69 63 6f 6e 69 64 3d 22 32 64   e="M" iconid="2d
+0350   22 20 74 69 74 6c 65 3d 22 59 6f 75 20 44 61 20   " title="You Da
+0360   42 61 64 64 65 73 74 20 28 66 65 61 74 2e 20 4e   Baddest (feat. N
+0370   69 63 6b 69 20 4d 69 6e 61 6a 29 22 20 73 65 6c   icki Minaj)" sel
+0380   65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69   ectable="1" /><i
+0390   74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 4d 22   tem icontype="M"
+03a0   20 69 63 6f 6e 69 64 3d 22 32 64 22 20 74 69 74    iconid="2d" tit
+03b0   6c 65 3d 22 43 6f 6d 69 6e 20 4f 75 74 20 53 74   le="Comin Out St
+03c0   72 6f 6e 67 20 28 66 65 61 74 2e 20 54 68 65 20   rong (feat. The
+03d0   57 65 65 6b 6e 64 29 22 20 73 65 6c 65 63 74 61   Weeknd)" selecta
+03e0   62 6c 65 3d 22 31 22 20 2f 3e 3c 69 74 65 6d 20   ble="1" /><item
+03f0   69 63 6f 6e 74 79 70 65 3d 22 4d 22 20 69 63 6f   icontype="M" ico
+0400   6e 69 64 3d 22 32 64 22 20 74 69 74 6c 65 3d 22   nid="2d" title="
+0410   4c 6f 6f 6b 69 6e 20 45 78 6f 74 69 63 22 20 73   Lookin Exotic" s
+0420   65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e   electable="1" />
+0430   3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22   <item icontype="
+0440   4d 22 20 69 63 6f 6e 69 64 3d 22 32 64 22 20 74   M" iconid="2d" t
+0450   69 74 6c 65 3d 22 44 61 6d 61 67 65 22 20 73 65   itle="Damage" se
+0460   6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c   lectable="1" /><
+0470   69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 4d   item icontype="M
+0480   22 20 69 63 6f 6e 69 64 3d 22 32 64 22 20 74 69   " iconid="2d" ti
+0490   74 6c 65 3d 22 55 73 65 20 4d 65 22 20 73 65 6c   tle="Use Me" sel
+04a0   65 63 74 61 62 6c 65 3d 22 31 22 20 2f 3e 3c 69   ectable="1" /><i
+04b0   74 65 6d 20 69 63 6f 6e 74 79 70 65 3d 22 4d 22   tem icontype="M"
+04c0   20 69 63 6f 6e 69 64 3d 22 32 64 22 20 74 69 74    iconid="2d" tit
+04d0   6c 65 3d 22 49 6e 63 72 65 64 69 62 6c 65 22 20   le="Incredible"
+04e0   73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f   selectable="1" /
+04f0   3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d   ><item icontype=
+0500   22 4d 22 20 69 63 6f 6e 69 64 3d 22 32 64 22 20   "M" iconid="2d"
+0510   74 69 74 6c 65 3d 22 54 65 73 74 69 66 79 22 20   title="Testify"
+0520   73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22 20 2f   selectable="1" /
+0530   3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70 65 3d   ><item icontype=
+0540   22 4d 22 20 69 63 6f 6e 69 64 3d 22 32 64 22 20   "M" iconid="2d"
+0550   74 69 74 6c 65 3d 22 46 72 65 73 68 20 41 69 72   title="Fresh Air
+0560   22 20 73 65 6c 65 63 74 61 62 6c 65 3d 22 31 22   " selectable="1"
+0570   20 2f 3e 3c 69 74 65 6d 20 69 63 6f 6e 74 79 70    /><item icontyp
+0580   65 3d 22 4d 22 20 69 63 6f 6e 69 64 3d 22 32 64   e="M" iconid="2d
+0590   22 20 74 69 74 6c 65 3d 22 4e 65 76 61 20 4d 69   " title="Neva Mi
+05a0   73 73 61 20 4c 6f 73 74 22 20 73 65 6c 65 63 74   ssa Lost" select
+05b0   61 62 6c 65                                       able
+
+
+CLIC SUR Sorry
+
+0000   49 53 43 50 00 00 00 10 00 00 00 11 01 00 00 00   ISCP............
+0010   21 31 4e 4c 41 49 30 36 30 30 30 38 2d 2d 2d 2d   !1NLAI060008----
+0020   0a                                                .
+
+Reponse
+0000   49 53 43 50 00 00 00 10 00 00 00 1e 01 00 00 00   ISCP............
+0010   21 31 4e 4c 54 30 30 32 32 30 30 30 30 30 30 30   !1NLT00220000000
+0020   30 30 30 30 31 30 34 30 30 30 30 1a 0d 0a         00001040000...
+
+req
+
+0000   49 53 43 50 00 00 00 10 00 00 00 0a 01 00 00 00   ISCP............
+0010   21 31 4e 41 54 51 53 54 4e 0a                     !1NATQSTN.
+
+0000   49 53 43 50 00 00 00 10 00 00 00 0b 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 43 2d 50 1a 0d 0a                  !1NLSC-P...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 1e 01 00 00 00   ISCP............
+0010   21 31 4e 4c 54 30 30 32 32 30 30 30 30 30 30 30   !1NLT00220000000
+0020   30 30 30 30 31 30 34 30 30 30 30 1a 0d 0a         00001040000...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 0b 01 00 00 00   ISCP............
+0010   21 31 4e 4c 53 43 30 50 1a 0d 0a                  !1NLSC0P...
+
+0000   49 53 43 50 00 00 00 10 00 00 00 0a 01 00 00 00   ISCP............
+0010   21 31 4e 41 4c 51 53 54 4e 0a                     !1NALQSTN.
+
+0000   49 53 43 50 00 00 00 10 00 00 00 1e 01 00 00 00   ISCP............
+0010   21 31 4e 4c 54 30 30 32 32 30 30 30 30 30 30 30   !1NLT00220000000
+0020   30 30 30 30 31 30 34 30 30 30 30 1a 0d 0a         00001040000...
+
+NTCPAUSE to pause
+NTCPLAY to play
+
+
+
+      '{xx}uycccciiiillrraabbssnnn...nnn':
+        description: "NET/USB List Title Info\nxx : Service Type\n 00 : DLNA, 01 :\
+          \ Favorite, 02 : vTuner, 03 : SiriusXM, 04 : Pandora, 05 : Rhapsody, 06\
+          \ : Last.fm,\n 07 : Napster, 08 : Slacker, 09 : Mediafly, 0A : Spotify,\
+          \ 0B : AUPEO!, 0C : radiko, 0D : e-onkyo,\n 0E : TuneIn Radio, 0F : MP3tunes,\
+          \ 10 : Simfy, 11:Home Media, 12:Deezer, 13:iHeartRadio,\n F0 : USB Front,\
+          \ F1 : USB Rear, F2 : Internet Radio, F3 : NET, FF : None\nu : UI Type\n\
+          \ 0 : List, 1 : Menu, 2 : Playback, 3 : Popup, 4 : Keyboard, \"5\" : Menu\
+          \ List\ny : Layer Info\n 0 : NET TOP, 1 : Service Top,DLNA/USB/iPod Top,\
+          \ 2 : under 2nd Layer\ncccc : Current Cursor Position (HEX 4 letters)\n\
+          iiii : Number of List Items (HEX 4 letters)\nll : Number of Layer(HEX 2\
+          \ letters)\nrr : Reserved (2 leters)\naa : Icon on Left of Title Bar\n 00\
+          \ : Internet Radio, 01 : Server, 02 : USB, 03 : iPod, 04 : DLNA, 05 : WiFi,\
+          \ 06 : Favorite\n 10 : Account(Spotify), 11 : Album(Spotify), 12 : Playlist(Spotify),\
+          \ 13 : Playlist-C(Spotify)\n 14 : Starred(Spotify), 15 : What's New(Spotify),\
+          \ 16 : Track(Spotify), 17 : Artist(Spotify)\n 18 : Play(Spotify), 19 : Search(Spotify),\
+          \ 1A : Folder(Spotify)\n FF : None\nbb : Icon on Right of Title Bar\n 00\
+          \ : DLNA, 01 : Favorite, 02 : vTuner, 03 : SiriusXM, 04 : Pandora, 05 :\
+          \ Rhapsody, 06 : Last.fm,\n 07 : Napster, 08 : Slacker, 09 : Mediafly, 0A\
+          \ : Spotify, 0B : AUPEO!, 0C : radiko, 0D : e-onkyo,\n 0E : TuneIn Radio,\
+          \ 0F : MP3tunes, 10 : Simfy, 11:Home Media, 12:Deezer, 13:iHeartRadio,\n\
+          \ FF : None\nss : Status Info\n 00 : None, 01 : Connecting, 02 : Acquiring\
+          \ License, 03 : Buffering\n 04 : Cannot Play, 05 : Searching, 06 : Profile\
+          \ update, 07 : Operation disabled\n 08 : Server Start-up, 09 : Song rated\
+          \ as Favorite, 0A : Song banned from station,\n 0B : Authentication Failed,\
+          \ 0C : Spotify Paused(max 1 device), 0D : Track Not Available, 0E : Cannot\
+          \ Skip\nnnn...nnn : Character of Title Bar (variable-length, 64 Unicode\
+          \ letters [UTF-8 encoded] max)"
+        models: set1
+      '{xx}uycccciiiillsraabbssnnn...nnn':
+        description: "NET/USB List Title Info\nxx : Service Type\n 00 : Music Server\
+          \ (DLNA), 01 : Favorite, 02 : vTuner, 03 : SiriusXM, 04 : Pandora, 05 :\
+          \ Rhapsody, 06 : Last.fm,\n 07 : Napster, 08 : Slacker, 09 : Mediafly, 0A\
+          \ : Spotify, 0B : AUPEO!, 0C : radiko, 0D : e-onkyo,\n 0E : TuneIn Radio,\
+          \ 0F : MP3tunes, 10 : Simfy, 11:Home Media, 12:Deezer, 13:iHeartRadio, 18:Airplay,\
+          \ 19:TIDAL, 1A:onkyo music,\n F0 : USB/USB(Front) F1 : USB(Rear), F2 : Internet\
+          \ Radio, F3 : NET, FF : None\nu : UI Type\n 0 : List, 1 : Menu, 2 : Playback,\
+          \ 3 : Popup, 4 : Keyboard, \"5\" : Menu List\ny : Layer Info\n 0 : NET TOP,\
+          \ 1 : Service Top,DLNA/USB/iPod Top, 2 : under 2nd Layer\ncccc : Current\
+          \ Cursor Position (HEX 4 letters)\niiii : Number of List Items (HEX 4 letters)\n\
+          ll : Number of Layer(HEX 2 letters)\ns : Start Flag\n 0 : Not First, 1 :\
+          \ First\nr : Reserved (1 leters, don't care)\naa : Icon on Left of Title\
+          \ Bar\n 00 : Internet Radio, 01 : Server, 02 : USB, 03 : iPod, 04 : DLNA,\
+          \ 05 : WiFi, 06 : Favorite\n 10 : Account(Spotify), 11 : Album(Spotify),\
+          \ 12 : Playlist(Spotify), 13 : Playlist-C(Spotify)\n 14 : Starred(Spotify),\
+          \ 15 : What's New(Spotify), 16 : Track(Spotify), 17 : Artist(Spotify)\n\
+          \ 18 : Play(Spotify), 19 : Search(Spotify), 1A : Folder(Spotify)\n FF :\
+          \ None\nbb : Icon on Right of Title Bar\n 00 : Muisc Server (DLNA), 01 :\
+          \ Favorite, 02 : vTuner, 03 : SiriusXM, 04 : Pandora, 05 : Rhapsody, 06\
+          \ : Last.fm,\n 07 : Napster, 08 : Slacker, 09 : Mediafly, 0A : Spotify,\
+          \ 0B : AUPEO!, 0C : radiko, 0D : e-onkyo,\n 0E : TuneIn Radio, 0F : MP3tunes,\
+          \ 10 : Simfy, 11:Home Media, 12:Deezer, 13:iHeartRadio, 18:Airplay, 19:TIDAL,\
+          \ 1A:onkyo music,\nF0:USB/USB(Front), F1:USB(Rear),\n FF : None\nss : Status\
+          \ Info\n 00 : None, 01 : Connecting, 02 : Acquiring License, 03 : Buffering\n\
+          \ 04 : Cannot Play, 05 : Searching, 06 : Profile update, 07 : Operation\
+          \ disabled\n 08 : Server Start-up, 09 : Song rated as Favorite, 0A : Song\
+          \ banned from station,\n 0B : Authentication Failed, 0C : Spotify Paused(max\
+          \ 1 device), 0D : Track Not Available, 0E : Cannot Skip\nnnn...nnn : Character\
+          \ of Title Bar (variable-length, 64 Unicode letters [UTF-8 encoded] max)"
+        models: set1
