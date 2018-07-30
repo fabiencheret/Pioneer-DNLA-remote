@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var net = require('net');
-var xmldom = require('xmldom');
+var xmlDom = require('xmldom');
+var config = require('../config.js');
+
 var ampli;
 
 var LEVELS = Object.freeze({"musicServer":0, "server":1, "music":2, "artists":3, });
@@ -9,23 +11,34 @@ var MESSAGES = {'POWERON':'PWR01', 'POWEROFF':'PWR00', 'MUSICSERVER':'NSV000'};
 
 var myNext;
 
-/* GET users listing. */
+/**
+ * Powers on the amplifier
+ */
 router.get('/on', function(req, res, next) {
     sendMessage(MESSAGES.POWERON);
     res.send('AMPLI WAS ASKED TO POWER ON');
 });
 
+/**
+ * Powers off the amplifier
+ */
 router.get('/off', function(req, res, next) {
     sendMessage(MESSAGES.POWEROFF);
     res.send('AMPLI WAS ASKED TO POWER OFF');
 
 });
 
+/**
+ * Select music server as input
+ */
 router.get('/musicserver', function(req, res, next) {
     sendMessage(MESSAGES.MUSICSERVER);
     res.send('AMPLI WAS ASKED TO GO TO THE MUSIC SERVERS');
 });
 
+/**
+ * returns the current displayed list
+ */
 router.get('/list', function(req, res, next) {
     var result = '';
     if(amp !== undefined && amp.currentList !== undefined){
@@ -37,6 +50,9 @@ router.get('/list', function(req, res, next) {
     res.send(result);
 });
 
+/**
+ * select the nth item in the current list
+ */
 router.get('/select/:id',function (req, res, next) {
     var id = parseInt(req.params.id);
     var level = parseInt(amp.currentLevel);
@@ -49,6 +65,9 @@ router.get('/select/:id',function (req, res, next) {
     }
 });
 
+/**
+ * For debug purposes
+ */
 router.get('/custom/:message',function (req, res, next) {
     var message = req.params.message;
     sendMessage(message);
@@ -71,9 +90,9 @@ router.use('/artist/:artist/:album?',function(req, res, next) {
 router.use('/artist/:artist/:album?',function(req, res, next) {
     //we have the list of servers now
     if(amp.currentList.length !== 0){
-        //At this point... Select the first server ?
-        console.log("selecting first server");
-        sendMessage(selectNthItemInTheListRequest(0, amp.currentLevel),next);
+        //At this point... Select the server in the config file
+        console.log("selecting server " + config.server_name);
+        findAndSelectItemInList(new RegExp(config.server_name,'i') ,next);
     } else {
         res.status(500).send('ERROR: NO SERVERS DETECTED');
     }
@@ -93,7 +112,7 @@ router.use('/artist/:artist/:album?',function(req, res, next) {
 
 router.use('/artist/:artist/:album?',function(req, res, next) {
     //music is selected
-   //select artist section
+    //select artist section
     console.log("selecting artists");
     let artistSectionFound = findAndSelectItemInList(/artist|Artiste/i,next);
     if(!artistSectionFound){
@@ -189,10 +208,7 @@ zzzz -> sequence number (0000-FFFF)
 ll -> number of layer (00-FF)
 xxxx -> index number (0000-FFFF : 1st to 65536th Item [4 HEX digits] )
 ---- -> not used
- */
 
-
-/*
    NLAL0003 04 00  00 0014  sequence number 0003
    NLAL0004 04 00  14 0014
    NLAL0000 04 00  00 0214
@@ -211,6 +227,12 @@ xxxx -> index number (0000-FFFF : 1st to 65536th Item [4 HEX digits] )
 
 module.exports = router;
 
+/**
+ * Start the socket to the amp
+ * @param name
+ * @param host
+ * @param port
+ */
 connectToAmpli = (name, host, port) => {
     ampli = net.connect({host: host, port: port});
     ampli.name = name;
@@ -241,7 +263,7 @@ sendMessage = (message, callback) => {
     console.log('sending message ' + message);
     if(ampli === undefined || !ampli.is_connected){
         console.log("ampli is not connected");
-        connectToAmpli('pioneer', '192.168.1.88', 60128);
+        connectToAmpli('pioneer', '192.168.1.88', config.port);
     }
     if(typeof callback === 'function'){
         myNext = callback;
@@ -297,7 +319,7 @@ processMessage = message => {
             amp.xmlContent = amp.xmlContent.replace(/\n/g,'');
             amp.xmlContent = amp.xmlContent.replace(/\r/g,'');
             //last message, process the xml
-            parser = new xmldom.DOMParser();
+            parser = new xmlDom.DOMParser();
             xmlDoc = parser.parseFromString(amp.xmlContent,'text/xml');
             let stuff = xmlDoc.getElementsByTagName('item');
             amp.currentList = [];
@@ -326,8 +348,8 @@ processMessage = message => {
         number = parseInt(message.substring(11, 15),16);
         amp.expectedListSize = number;
         if(number > 4){
-                layer = parseInt(message.substring(15,17),16);
-                sendMessage(listItemsInLevel(layer,number));
+            layer = parseInt(message.substring(15,17),16);
+            sendMessage(listItemsInLevel(layer,number));
         }
     } else if(message.startsWith('NLTF3')){
         // NLTF3 = list items F3 : NET
@@ -370,3 +392,4 @@ function iscp_packet(data) {
 
     return Buffer.concat([header, iscp_msg]);
 }
+
