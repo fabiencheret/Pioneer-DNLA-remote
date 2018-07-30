@@ -5,32 +5,25 @@ var xmldom = require('xmldom');
 var ampli;
 
 var LEVELS = Object.freeze({"musicServer":0, "server":1, "music":2, "artists":3, });
+var MESSAGES = {'POWERON':'PWR01', 'POWEROFF':'PWR00', 'MUSICSERVER':'NSV000'};
+
+var myNext;
 
 /* GET users listing. */
 router.get('/on', function(req, res, next) {
-    sendMessage('PWR01');
+    sendMessage(MESSAGES.POWERON);
     res.send('AMPLI WAS ASKED TO POWER ON');
 });
 
 router.get('/off', function(req, res, next) {
-    sendMessage('PWR00');
+    sendMessage(MESSAGES.POWEROFF);
     res.send('AMPLI WAS ASKED TO POWER OFF');
 
 });
 
 router.get('/musicserver', function(req, res, next) {
-    sendMessage('NSV000');
+    sendMessage(MESSAGES.MUSICSERVER);
     res.send('AMPLI WAS ASKED TO GO TO THE MUSIC SERVERS');
-});
-
-router.get('/fibaneserver', function(req, res, next) {
-    sendMessage('NLAI010000----');
-    res.send('AMPLI WAS ASKED TO GO TO THE FIBANE SERVERS');
-});
-
-router.get('/fibaneservermusique', function(req, res, next) {
-    sendMessage('NLAI020001----');
-    res.send('AMPLI WAS ASKED TO GO TO THE FIBANE SERVERS');
 });
 
 router.get('/list', function(req, res, next) {
@@ -45,8 +38,8 @@ router.get('/list', function(req, res, next) {
 });
 
 router.get('/select/:id',function (req, res, next) {
-    var id = req.params.id;
-    var level = amp.currentLevel;
+    var id = parseInt(req.params.id);
+    var level = parseInt(amp.currentLevel);
     if(id >= amp.currentList.size){
         res.status(500).send('ID is too big and doesn\'t exist in the list');
     } else {
@@ -62,24 +55,120 @@ router.get('/custom/:message',function (req, res, next) {
     res.send('MESSAGE ' + message + ' HAS BEEN SENT');
 });
 
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    let artist = req.params.artist;
+    //full flow, let's go
+    //turn on amp
+    sendMessage(MESSAGES.POWERON,next);
+});
+
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    console.log("selecting music server");
+    sendMessage(MESSAGES.MUSICSERVER,next);
+});
+
+
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    //we have the list of servers now
+    if(amp.currentList.length !== 0){
+        //At this point... Select the first server ?
+        console.log("selecting first server");
+        sendMessage(selectNthItemInTheListRequest(0, amp.currentLevel),next);
+    } else {
+        res.status(500).send('ERROR: NO SERVERS DETECTED');
+    }
+});
+
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    //server is selected
+    console.log("selecting music section");
+    let musicFound = findAndSelectItemInList(/music|musique/i,next);
+    if(!musicFound){
+        console.log('Music section not found');
+        res.status(500).send('ERROR: Couldn\'t find any music');
+    } else {
+        console.log('Music section found');
+    }
+});
+
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    //music is selected
+   //select artist section
+    console.log("selecting artists");
+    let artistSectionFound = findAndSelectItemInList(/artist|Artiste/i,next);
+    if(!artistSectionFound){
+        res.status(500).send('ERROR: Couldn\'t find any Artist section');
+    }
+});
+
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    console.log("selecting the right artist");
+    let artist = req.params.artist;
+    artist.replace(' ','.');
+    console.log("finding artist " + artist);
+    let artistFound = findAndSelectItemInList(new RegExp(artist,'i'),next);
+    if(!artistFound){
+        console.log('artist not found');
+        res.status(500).write("ERROR:  Couldn't find the asked artist " + artist);
+    }
+});
+
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    console.log("selecting the album");
+    let currentLevel = amp.currentLevel;
+    if(typeof req.params.album === 'undefined'){
+        sendMessage(selectNthItemInTheListRequest(0,currentLevel),next);
+    } else {
+        findAndSelectItemInList(new RegExp(req.params.album,'i'),next);
+    }
+});
+
+router.use('/artist/:artist/:album?',function(req, res, next) {
+    console.log("selecting the first song");
+    //now select the first album and first song, we don't care
+    let currentLevel = amp.currentLevel;
+    sendMessage(selectNthItemInTheListRequest(0,currentLevel));
+    res.send("STARTING MUSIC");
+});
+
 
 /**
  *
- * @param id {String}
- * @param level {String}
+ * @param stringToMatch {RegExp}
+ * @param callback
+ */
+function findAndSelectItemInList(stringToMatch,callback){
+    let itemFound = false;
+    //select music
+    for (let i = 0; i < amp.currentList.length; i++) {
+        if(amp.currentList[i].match(stringToMatch)){
+            //select music
+            sendMessage(selectNthItemInTheListRequest(i, amp.currentLevel),callback);
+            itemFound = true;
+            break;
+        }
+    }
+    return itemFound;
+}
+
+
+/**
+ *
+ * @param id {number}
+ * @param level {number}
  * @returns {String}
  */
 selectNthItemInTheListRequest = (id, level) => {
-    var hexID = id.toString(16).toUpperCase().padStart(4,'0');
+    var hexLevel = (level).toString(16).toUpperCase().padStart(2,'0');
 
-    var hexLevel = level.toString(16).toUpperCase().padStart(2,'0');
+    var hexID = (id).toString(16).toUpperCase().padStart(4,'0');
 
     return 'NLAI' + hexLevel + hexID + '----';
 };
 
 listItemsInLevel = (level, numberOfItems) => {
-    var hexLevel = level.toString(16).toUpperCase().padStart(2,'0');
-    var numberOfItemsHex = numberOfItems.toString(16).toUpperCase().padStart(4,'0');
+    var hexLevel = (level).toString(16).toUpperCase().padStart(2,'0');
+    var numberOfItemsHex = (numberOfItems).toString(16).toUpperCase().padStart(4,'0');
 
     //NLAL00000400000F14
     return 'NLAL0000' + hexLevel + '0000' + numberOfItemsHex;
@@ -132,14 +221,15 @@ connectToAmpli = (name, host, port) => {
         ampli.is_connected = false;
         ampli.destroy();
     }).on('error', function (err) {
-        ampli.is_connected = false;
+        console.log(err);
     }).on('data', function (data) {
         var messages = data.toString().replace(/[^\x20-\x7E\xC0-\xFF]/gi, '');
 
         messages = messages.replace(/ISCP.!1/, 'ISCP!1');
         messages = messages.split('ISCP!1');
 
-        for (var i = 0, len = messages.length; i < len; i++) {
+        let i = 0, len = messages.length;
+        for (; i < len; i++) {
             if (messages[i].length > 0) {
                 processMessage(messages[i]);
             }
@@ -147,14 +237,25 @@ connectToAmpli = (name, host, port) => {
     });
 };
 
-sendMessage = message => {
+sendMessage = (message, callback) => {
     console.log('sending message ' + message);
     if(ampli === undefined || !ampli.is_connected){
         console.log("ampli is not connected");
         connectToAmpli('pioneer', '192.168.1.88', 60128);
     }
-    ampli.write(iscp_packet(message),(e) => console.log(e));
+    if(typeof callback === 'function'){
+        myNext = callback;
+    }
+    ampli.write(iscp_packet(message));
 };
+
+function executeCallback(){
+    if(typeof myNext === 'function'){
+        let myCallback = myNext;
+        myNext = undefined;
+        myCallback();
+    }
+}
 
 /**
  *
@@ -174,9 +275,16 @@ processMessage = message => {
             amp.currentList = [];
             //new list begins
         }
-        var values = message.split('-');
-        amp.currentList.push(values[1]);
+        amp.currentList.push(message.substring(message.indexOf('-') +1 ));
+        if(amp.currentList.length === amp.expectedListSize){
+            executeCallback();
+        }
     } else if (message.startsWith('NLAX') || message.includes('><item')) {
+        if(message.includes('response status="fail"')){
+            //sometimes fails because the selection is too big for the server or whatever. Need to split calls
+            //here we don't have the failed request...
+
+        }
         //XML message - multiple messages coming
         let xmlValue = message;
         if(message.startsWith('NLAX')){
@@ -197,9 +305,11 @@ processMessage = message => {
                 amp.currentList.push(stuff[i].getAttribute('title'));
             }
             amp.xmlContent='';
+            executeCallback();
         }
-    } else if (message.startsWith('NLT')) {
-        /*      NLT0002 0000 0005 02 10 04 00 00 FibaneServer
+    } else if (message.startsWith('NLT00')) {
+        /*      NLT 00 0 2 0000 0044 06 10 04 00 00- All Albums -
+                NLT 00 0 2 0000 0005 02 10 04 00 00 FibaneServer
                 NLT 00 0 2 0000 029B 04 10 04 00 00
                 NLT 00 0 2 0000 029B 04 10 04 00 00
                   '{xx}u y cccc iiii ll rr aa bb ss
@@ -213,17 +323,28 @@ processMessage = message => {
                 */
         level = parseInt(message.substring(6,7));
         amp.currentLevel = level;
-        number = parseInt(message.substring(11, 15),16) -1;
-        if(amp.currentList.length <= number){
-            layer = parseInt(message.substring(15,17),16);
-            sendMessage(listItemsInLevel(layer,number));
+        number = parseInt(message.substring(11, 15),16);
+        amp.expectedListSize = number;
+        if(number > 4){
+                layer = parseInt(message.substring(15,17),16);
+                sendMessage(listItemsInLevel(layer,number));
         }
-    }
+    } else if(message.startsWith('NLTF3')){
+        // NLTF3 = list items F3 : NET
+        number = parseInt(message.substring(11, 15),16);
+        amp.expectedListSize = number; //don't know why I don't have to do -1 here... Protocol is sketchy
+    }/* else if(message.startsWith('PWR01')){
+        //ampli just started, call callback if needed
+        executeCallback();
+    }*/
 };
+
+//NTCRETURN
 
 
 var amp = {
     currentList: [],
+    expectedListSize: 0,
     currentLevel: 0,
     xmlContent : '',
 };
