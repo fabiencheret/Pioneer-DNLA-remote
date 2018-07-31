@@ -1,39 +1,73 @@
-var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
+
 var logger = require('morgan');
-var bodyParser = require('body-parser');
-var verifier = require('alexa-verifier-middleware');
+var alexa = require("alexa-app");
+
+
+var express_app = express();
+var ampControl = require('./routes/ampli');
 
 var indexRouter = require('./routes/index');
-var ampliRouter = require('./routes/ampli');
+//var ampliRouter = require('./routes/ampli');
 var alexaRouter = require('./routes/alexa');
 
-var app = express();
+var app = new alexa.app("remote");
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+express_app.use(logger('dev'));
 
-app.use('/', indexRouter);
-app.use('/ampli', ampliRouter);
-app.use('/alexa', alexaRouter);
-alexaRouter.use(verifier);
+//app.use('/', indexRouter);
+//app.use('/ampli', ampliRouter);
+//app.use('/alexa', alexaRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    next(createError(404));
+app.intent("music",{
+        "slots": {"number": "AMAZON.Artist"},
+        "utterances": ["ok {-|artist}"],
+    },
+    function(req,res){
+        var artist = req.slot('artist');
+        var album = req.slot('album');
+        ampControl.startMusic(artist,album,function(err){
+            if(err){
+                res.say("An error has occurred");
+            } else {
+                res.say("Je lance la musique")
+            }
+        })
+    }
+);
+
+app.intent("poweron",
+    function(req,res){
+        ampControl.poweron();
+        res.say("C'est parti !")
+    }
+);
+
+app.intent("poweroff",
+    function(req,res){
+        ampControl.poweroff();
+        res.say('Okay !')
+    }
+);
+
+app.intent("pause",
+    function(req,res){
+        ampControl.poweroff();
+        res.say('Okay !')
+    }
+);
+
+app.express({
+    expressApp: express_app ,
+    checkCert: true,
+    debug: false,
+    endpoint: 'alexa'
 });
 
+
 // error handler
-app.use(function(err, req, res, next) {
+express_app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -43,4 +77,4 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+module.exports = express_app;

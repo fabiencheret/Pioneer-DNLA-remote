@@ -1,155 +1,77 @@
-var express = require('express');
-var router = express.Router();
-var net = require('net');
+const config = require('../config');
 var xmlDom = require('xmldom');
-var config = require('../config.js');
+var net = require('net');
 
-var ampli;
+var MESSAGES = {'POWERON':'PWR01', 'POWEROFF':'PWR00', 'MUSICSERVER':'NSV000', 'PAUSE': 'NTCPAUSE'};
 
-var LEVELS = Object.freeze({"musicServer":0, "server":1, "music":2, "artists":3, });
-var MESSAGES = {'POWERON':'PWR01', 'POWEROFF':'PWR00', 'MUSICSERVER':'NSV000'};
+const ampControl = {
 
-var myNext;
+    /**
+     * Sends a power-on message
+     * @param callback {function} optional callback
+     */
+    poweron: function (callback) {
+        sendMessage(MESSAGES.POWERON, callback);
+    },
 
-/**
- * Powers on the amplifier
- */
-router.get('/on', function(req, res, next) {
-    sendMessage(MESSAGES.POWERON);
-    res.send('AMPLI WAS ASKED TO POWER ON');
-});
+    poweroff: function () {
+        sendMessage(MESSAGES.POWEROFF);
+    },
 
-/**
- * Powers off the amplifier
- */
-router.get('/off', function(req, res, next) {
-    sendMessage(MESSAGES.POWEROFF);
-    res.send('AMPLI WAS ASKED TO POWER OFF');
+    pause: function() {
+        sendMessage(MESSAGES.PAUSE)
+    },
 
-});
-
-/**
- * Select music server as input
- */
-router.get('/musicserver', function(req, res, next) {
-    sendMessage(MESSAGES.MUSICSERVER);
-    res.send('AMPLI WAS ASKED TO GO TO THE MUSIC SERVERS');
-});
-
-/**
- * returns the current displayed list
- */
-router.get('/list', function(req, res, next) {
-    var result = '';
-    if(amp !== undefined && amp.currentList !== undefined){
-        var i = 0;
-        for(i = 0 ; i < amp.currentList.length; i++){
-            result += i + ' - ' + amp.currentList[i] + '\n';
+    /**
+     * Starts playing the artist, optional album
+     * @param artist {String}
+     * @param album {String}
+     * @param callback {function} call after music is started, or error occurred
+     */
+    startMusic: function (artist, album, callback) {
+        artist = artist.replace(/\s/, '.');
+        if (album) {
+            album = album.replace(/\s/, '.');
         }
-    }
-    res.send(result);
-});
-
-/**
- * select the nth item in the current list
- */
-router.get('/select/:id',function (req, res, next) {
-    var id = parseInt(req.params.id);
-    var level = parseInt(amp.currentLevel);
-    if(id >= amp.currentList.size){
-        res.status(500).send('ID is too big and doesn\'t exist in the list');
-    } else {
-        var message=  selectNthItemInTheListRequest(id, level);
-        sendMessage(message);
-        res.send('MESSAGE ' + message + ' HAS BEEN SENT FOR LEVEL ' + level)
-    }
-});
-
-/**
- * For debug purposes
- */
-router.get('/custom/:message',function (req, res, next) {
-    var message = req.params.message;
-    sendMessage(message);
-    res.send('MESSAGE ' + message + ' HAS BEEN SENT');
-});
-
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    let artist = req.params.artist;
-    //full flow, let's go
-    //turn on amp
-    sendMessage(MESSAGES.POWERON,next);
-});
-
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    console.log("selecting music server");
-    sendMessage(MESSAGES.MUSICSERVER,next);
-});
+        sendMessage(MESSAGES.POWERON, function () {
+                sendMessage(MESSAGES.MUSICSERVER, function () {
+                    //finding dnla server
+                    findAndSelectItemInList(new RegExp(config.server_name, 'i'), function () {
+                        let musicFound = findAndSelectItemInList(/music|musique/i, function () {
+                            let artistSectionFound = findAndSelectItemInList(/artist|Artiste/i, function () {
+                                let artistFound = findAndSelectItemInList(new RegExp(artist, 'i'), function () {
+                                    let next = function () {
+                                        sendMessage(selectNthItemInTheListRequest(0, amp.currentLevel), callback);
+                                    };
+                                    if (album) {
+                                        findAndSelectItemInList(new RegExp(album, 'i'), next);
+                                    } else {
+                                        sendMessage(selectNthItemInTheListRequest(0, amp.currentLevel), next);
+                                    }
+                                });
+                                if (!artistFound) {
+                                    //error
+                                    callback('given artist not found');
+                                }
+                            });
+                            if (!artistSectionFound) {
+                                //error
+                                callback('artist section not found');
+                            }
+                        });
+                        if (!musicFound) {
+                            callback('music section not found');
+                        }
+                    });
+                });
+            }
+        );
+    },
+};
 
 
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    //we have the list of servers now
-    if(amp.currentList.length !== 0){
-        //At this point... Select the server in the config file
-        console.log("selecting server " + config.server_name);
-        findAndSelectItemInList(new RegExp(config.server_name,'i') ,next);
-    } else {
-        res.status(500).send('ERROR: NO SERVERS DETECTED');
-    }
-});
 
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    //server is selected
-    console.log("selecting music section");
-    let musicFound = findAndSelectItemInList(/music|musique/i,next);
-    if(!musicFound){
-        console.log('Music section not found');
-        res.status(500).send('ERROR: Couldn\'t find any music');
-    } else {
-        console.log('Music section found');
-    }
-});
-
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    //music is selected
-    //select artist section
-    console.log("selecting artists");
-    let artistSectionFound = findAndSelectItemInList(/artist|Artiste/i,next);
-    if(!artistSectionFound){
-        res.status(500).send('ERROR: Couldn\'t find any Artist section');
-    }
-});
-
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    console.log("selecting the right artist");
-    let artist = req.params.artist;
-    artist.replace(' ','.');
-    console.log("finding artist " + artist);
-    let artistFound = findAndSelectItemInList(new RegExp(artist,'i'),next);
-    if(!artistFound){
-        console.log('artist not found');
-        res.status(500).write("ERROR:  Couldn't find the asked artist " + artist);
-    }
-});
-
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    console.log("selecting the album");
-    let currentLevel = amp.currentLevel;
-    if(typeof req.params.album === 'undefined'){
-        sendMessage(selectNthItemInTheListRequest(0,currentLevel),next);
-    } else {
-        findAndSelectItemInList(new RegExp(req.params.album,'i'),next);
-    }
-});
-
-router.use('/artist/:artist/:album?',function(req, res, next) {
-    console.log("selecting the first song");
-    //now select the first album and first song, we don't care
-    let currentLevel = amp.currentLevel;
-    sendMessage(selectNthItemInTheListRequest(0,currentLevel));
-    res.send("STARTING MUSIC");
-});
-
+var myNext, ampli;
 
 /**
  *
@@ -193,39 +115,6 @@ listItemsInLevel = (level, numberOfItems) => {
     return 'NLAL0000' + hexLevel + '0000' + numberOfItemsHex;
 };
 
-/*
-
-NLAI010000----
-NLAI020001----          (second item in list) 1NLAI030002 - 3rd item in list  1NLAI0400E4---- xth item in the list
-NLAI030002----
-NLAI0400E4----
-NLAI050001----
-NLAI060008----
-   Izzzzll----:
-
-"Izzzzllxxxx----"	select the listed item (from Network Control Only)
-zzzz -> sequence number (0000-FFFF)
-ll -> number of layer (00-FF)
-xxxx -> index number (0000-FFFF : 1st to 65536th Item [4 HEX digits] )
----- -> not used
-
-   NLAL0003 04 00  00 0014  sequence number 0003
-   NLAL0004 04 00  14 0014
-   NLAL0000 04 00  00 0214
-      Lzzzz ll{xx}{xx}yyyy:
-        name: lzzzzll-xx-xx-yyyy
-        description: 'specifiy to get the listed data (from Network Control Only)
-          zzzz -> sequence number (0000-FFFF)
-          ll -> number of layer (00-FF)
-          xxxx -> index of start item (0000-FFFF : 1st to 65536th Item [4 HEX digits]
-          )
-          yyyy -> number of items (0000-FFFF : 1 to 65536 Items [4 HEX digits] )'
-        models: set1
-
- */
-
-
-module.exports = router;
 
 /**
  * Start the socket to the amp
@@ -243,7 +132,7 @@ connectToAmpli = (name, host, port) => {
         ampli.is_connected = false;
         ampli.destroy();
     }).on('error', function (err) {
-        console.log(err);
+        //console.log(err);
     }).on('data', function (data) {
         var messages = data.toString().replace(/[^\x20-\x7E\xC0-\xFF]/gi, '');
 
@@ -259,17 +148,17 @@ connectToAmpli = (name, host, port) => {
     });
 };
 
-sendMessage = (message, callback) => {
-    console.log('sending message ' + message);
+function sendMessage(message, callback) {
+    //console.log('sending message ' + message);
     if(ampli === undefined || !ampli.is_connected){
-        console.log("ampli is not connected");
+        //console.log("ampli is not connected");
         connectToAmpli('pioneer', '192.168.1.88', config.port);
     }
     if(typeof callback === 'function'){
         myNext = callback;
     }
     ampli.write(iscp_packet(message));
-};
+}
 
 function executeCallback(){
     if(typeof myNext === 'function'){
@@ -284,7 +173,7 @@ function executeCallback(){
  * @param message {String}
  */
 processMessage = message => {
-    console.log(message);
+    //console.log(message);
     let number, layer, level;
     if (message.startsWith('NLSU')) {
         /*
@@ -392,4 +281,6 @@ function iscp_packet(data) {
 
     return Buffer.concat([header, iscp_msg]);
 }
+
+module.exports = ampControl;
 

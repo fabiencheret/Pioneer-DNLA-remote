@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var ampControl = require('./ampli.js');
 
 
 router.use(express.json);
@@ -16,13 +17,11 @@ router.use('/alexa', function(req,res,next){
 
         } else if(data.request.intent.name === 'poweron'){
             //turn on the amp
+            ampControl.poweron(() => res.status(200));
         } else if(data.request.intent.name === 'poweroff'){
             //turn off the amp
         } else if(data.request.intent.name === 'pause'){
             //pause the music
         }
-
-
-
     }
 });
